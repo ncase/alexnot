@@ -4,7 +4,7 @@ A pure-symbolic solver for ARC-AGI-2, that runs at $0.000035/task!
 
 **Read the paper!** (⏱️ ~90 min reading, but it's full of illustrations & not academic bone-dry)
 
-- PDF: https://ncase.me/alexnot-paper
+- Permalink (PDF): https://ncase.me/alexnot-paper
 - Kaggle: (to come)
 
 **See also:**
