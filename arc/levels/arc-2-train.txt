@@ -1,0 +1,233 @@
+20fb2937 - instructions to replace
+a644e277 - crop to bg dots
+6cbe9eb8
+f0100645 - fall to own color
+46c35fc7 - rotate in 2 diff directions
+fc4aaf52 - split n swap
+305b1341
+fe45cba4
+d6542281
+37ce87bb - arithmetic with negative nums
+465b7d93 - extend shape inside
+d93c6891
+cf5fd0ad
+1d61978c - even reds, odd skys
+825aa9e9 - fall then up one
+278e5215 - vertical paints
+db118e2a
+3d588dc9
+9b5080bb
+13f06aa5
+9473c6fb - red-sky-gray depending on axis
+14b8e18c
+bae5c565
+ecb67b6d
+87ab05b8
+9841fdad
+2f767503
+79cce52d - double loop xy
+4a1cacc2 - fill to closest corner
+a1aa0c1e
+6350f1f4 - grey noise metamap thing iunno
+7d7772cc - match? towards! else fall away
+95755ff2
+c6141b15 - connect centers, replace previous ends
+b25e450b
+af726779 - add/replace pixels, loop
+d753a70b - diagonal box shrink or expand
+5587a8d0 - area to outlines
+ff2825db - bounds of most color
+f28a3cbb
+db615bd4
+8abad3cf
+337b420f - lesser delete then overlap (annotate per section/type?)
+dce56571 - centered line same area
+c4d1a9ae - color behind with looped order
+470c91de - move one in that direction
+342ae2ed - connect centers
+22208ba4 - color twin? move in!
+b7955b3c - remove crosses
+15660dd6
+981add89 - ray down, if intersect own color, empty out
+fc10701f - move then red gaps
+ad38a9d0 - shadow to color
+758abdf0 - 1 to 2 extend away, 2 fall away # or alt-parse?...
+e3f79277
+252143c9
+66ac4c3b
+11dc524f - fall and flip
+58c02a16 - tile out pattern
+902510d5
+a416fc5b - 45 degree rotated metamap // meta-compress
+1be83260 - relative color paint
+34cfa167 - jeebus
+2b9ef948 - chain move then rays out
+30f42897 - circular order thing
+6ca952ad - above 3 area falls
+52364a65 - delete 2 leftmost pixels per shape?!
+6ffe8f07 - yellow rays, blue block red above
+50c07299 - move & lengthen
+83eb0a57
+7e2bad24
+f3e14006
+8a6d367c - whatever fits
+8886d717
+17829a00 - fall towards own color
+1b8318e3 - fall towards closest grey
+7ec998c9
+5a719d11
+458e3a53
+5ad8a7c0
+b5bb5719
+25e02866 - all overlap then most-common z-index=-1
+42f14c03 - fit to gaps then crop to fitted
+2faf500b - move one away and hide pink
+5623160b - fall away
+fd02da9e
+97c75046
+33067df9
+689c358e - crosses pew pew
+c803e39c - metamap color fg bg
+17b866bd - patterned bg, put shape right-down
+2de01db2 - NOT most-color each row // why that color why that shape
+f8cc533f - repair symmetry???
+e048c9ed - length is color but theres an ERROR in train
+9ba4a9aa - whose on other side of chain
+e729b7be - just copy-rotate
+1478ab18
+9caf5b84
+83b6b474
+753ea09b - fill between chains
+5034a0b5 - fall one to own color
+c61be7dc
+c3fa4749
+396d80d7
+1efba499
+dc46ea44
+494ef9d7 - these pairs fall left
+afe3afe9 - to dots then fall
+9f8de559 - pew!
+60d73be6
+996ec1f3
+4df5b0ae - sort by area
+78e78cff - fill hull then ray out
+5751f35e - fill bounds, make square
+b745798f - streeeetch and place L to corner
+1190bc91
+e39e9282 - two in or bite
+18447a8d - FIT
+2a28add5 - no idea, absolute bs
+d968ffd4
+5e6bbc0b - fall towards sky dot and duplicate height
+4e7e0eb9
+84551f4c - dominos
+6a980be1
+3cd86f4f - shear rows
+41ace6b5
+5d588b4d - reading order triangular... blegh
+e3fe1151 - complete missing dot (remove noise?)
+d749d46f - horiz and verti
+8618d23e - below middle-scene, 1rd, brown bg
+f18ec8cc
+df9fd884 - same center X as top then bottom
+1b59e163 - copy to all dots in LoS
+f0f8a26d - rotate all... wait why isnt this solved (TRY)
+3bd292e8 - alternating colors
+3ad05f52
+9f5f939b - yellow focus
+ad3b40cf - flip LESS area (or guess)
+ad173014
+42f83767 - 
+668eec9a - stack center-y's
+9968a131 - shear?
+3d6c6e23 - sand pile
+9f669b64
+52df9849 - reverse layers
+da6e95e5
+48634b99
+22806e14 - odd centers
+f341894c - point towards orange
+68bc2e87 - bottommost is topmost
+bd5af378
+80214e03
+b2bc3ffd - move up own area EXCEPT bttm (try!)
+8fff9e47
+d255d7a7
+973e499e - meta-pattern
+e84fef15
+8dab14c2 - weird pew pew
+8e301a54 - move down my area (wait this should work! TRY)
+ba1aa698 - continue pattern (arithmetic?)
+18286ef8 - point to pink
+2ccd9fef - NOPE complete pattern
+e4888269 - color in order
+5b37cb25 - fill crosses, color according to edge
+9b30e358 - just extend pattern!
+5ecac7f7 - 1st 2nd 3rd WITHIN pink dividers... or 1/6/11
+5792cb4d - chain reverse color order
+7e4d4f7c - crop n mirror pink
+fbf15a0b - reach out weird thingy
+a2d730bd
+57edb29d
+833966f4 - flip the dots... swap y
+b74ca5d1
+ac6f9922 - ugh relative grid-likes...
+e45ef808 - TRY! color blue + height_most=1 & height_least=1 (oh wait ambiguous train) # random order shape...
+e9fc42f2 - magnet then crop
+9720b24f - in convex hull, DELETE
+7e576d6e - pathfind through the middle
+aaef0977
+342dd610 - literally one example per move?
+522fdd07 - shrink or boom
+a834deea - black is bg, color pixels BEHIND
+f8f52ecc - connect three
+985ae207 - extend pattern towards same color until touch
+9f41bd9c - shear legs
+652646ff
+6165ea8f - similarity matrix wtf
+abbfd121
+ac0c2ac3
+7acdf6d3
+b7256dcd - touching gets colored
+bc93ec48 - corner-toucher gets copied to other corner
+332202d5
+22425bda - ambiguous stick order
+25c199f5 - bottom to top stacked
+1a244afd - rotate los & pink
+320afe60 - fall & recolor based on GAP
+b1986d4b
+99caaf76 - spaceships moooove
+d6e50e54 - fall towards, closest gets extra in
+84ba50d3 - bs physics thing
+b71a7747
+880c1354 - relative color rotation
+182e5d0f - ziiiiip!
+963c33f8 - (ERROR???) fall or pass
+cc9053aa - it's the frikkin witness
+2e65ae53 - relative-position colored boxes
+f1bcbc2c - wtf water?
+c920a713 - under is outermost
+aa62e3f4 - outline least color then bye
+bd283c4a - sort all dots reading-order
+1e5d6875 - grey=>yellow, red=>green
+412b6263 - rotate, outline, corners removed
+df978a02 - steals the tip
+54dc2872 - anchor to dot if it exists, then move back one in direction it JUST moved (inertia)
+6d1d5c90 - down n loop around
+edcc2ff0 - width is count-1, if no-color-twin-no-hole recolor to color-most or hide
+6bcdb01e - turtle hell no
+a09f6c25 - property - v_symm, d_symm, h_symm etc etc
+a6953f00 - just GUESS one of the two corners???
+98c475bf - place 'em
+c9680e90 - red follow pink then grey flipped
+9344f635 - hori above vert below ray out
+538b439f - flip and connect, or connect then flip
+984d8a3e
+aaecdb9a - histogram count
+230f2e48
+e734a0e8 - copy to the rest
+e4941b18 - chase & push off // ambigous bs, guess?
+2601afb7 - color & length order in opposite dir loop
+db7260a4 - slip fall & hull (water)
+5adee1b2 - bounds with padding holes stay black
+878187ab - w&h is least & most count

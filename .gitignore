@@ -1,0 +1,14 @@
+# OS + Python clutter
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.pytest_cache/
+.vscode/
+
+# Logs the code writes when you run it
+tests/blast_logs/
+tests/daily-blasts/
+arc/webapp/bayes_logs/

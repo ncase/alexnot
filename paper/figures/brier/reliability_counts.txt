@@ -1,0 +1,12 @@
+ARC-1 Eval: 419 tests, 3432 bets, T=15.5, D=18.0
+  0%-20%: 2957 bets (86.2% of all), 28 right (0.9%), mean predicted 0.5%
+  20%-40%: 52 bets (1.5% of all), 17 right (32.7%), mean predicted 29.3%
+  40%-60%: 34 bets (1.0% of all), 18 right (52.9%), mean predicted 49.1%
+  60%-80%: 36 bets (1.0% of all), 20 right (55.6%), mean predicted 69.1%
+  80%-100%: 353 bets (10.3% of all), 336 right (95.2%), mean predicted 98.5%
+ARC-2 Eval: 167 tests, 2277 bets, T=15.5, D=18.0
+  0%-20%: 2099 bets (92.2% of all), 4 right (0.2%), mean predicted 0.3%
+  20%-40%: 11 bets (0.5% of all), 4 right (36.4%), mean predicted 27.9%
+  40%-60%: 12 bets (0.5% of all), 6 right (50.0%), mean predicted 48.2%
+  60%-80%: 11 bets (0.5% of all), 11 right (100.0%), mean predicted 72.9%
+  80%-100%: 144 bets (6.3% of all), 142 right (98.6%), mean predicted 99.4%

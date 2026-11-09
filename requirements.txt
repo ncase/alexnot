@@ -1,0 +1,11 @@
+# Core (alexnot solver)
+numpy
+scipy
+func_timeout
+
+# Webapp (arc/webapp/)
+flask
+flask-cors
+
+# Paper figures (paper/figures/)
+matplotlib

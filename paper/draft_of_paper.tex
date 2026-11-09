@@ -1,0 +1,498 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Title n' stuff
+\title{Understanding is Compression, Problem-Solving is Search, Intuition is Pattern-Matching}
+\author{Nicky Case and Nora Danger}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Line spacing
+\usepackage{setspace}
+\onehalfspacing    % Sets line spacing to 1.5x
+% \setstretch{1.25}  % Sets a custom multiplier (e.g., 1.25x)
+
+% Citations
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+\makeatletter
+\renewcommand\hyper@natlinkbreak[2]{#1}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPLASH: GRAPHICAL ABSTRACT %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\newpage
+\thispagestyle{empty}
+\newgeometry{margin=0pt}
+\null\vfill
+\noindent\includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{figures/stronk.png}
+\vfill\null
+\restoregeometry
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LET'S BEGIN THIS PAPER %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+\begin{abstract}
+
+It's just code. No Transformers, no neural networks, just good ol' fashioned AI!
+
+We present \textsc{AlexNot}, a pure-symbolic program synthesizer, designed around 3 universal principles from Cognitive Science: \textbf{understanding is compression, problem-solving is search, intuition is pattern-matching.} Our system finds Python code that best \textit{compresses} a dataset, using an evolutionary \textit{search} over discrete programs, guided by ``core knowledge prior'' \textit{pattern-matching} heuristics. What's more, our system finds not just one best program, but a whole approximate posterior distribution of programs.
+
+Despite being pure-symbolic, AlexNot scores \textbf{30\% (7th Place)} on the ARC-AGI-2 Private Eval, spending only \textit{10 seconds} per task, \textit{without} GPU — that's ${\sim}\$0.00001$ per task, ${\sim}1000\times$ cheaper than the current score-cost Pareto frontier. Finally, by combining AlexNot with classic planning algorithms and ``core \textit{exploration} priors'', our system also scores \textbf{15\% (1st Place)} on the interactive ARC-AGI-3 Private Eval, at ${\sim}\$0.0004$ per game.
+
+To be clear, we are \textit{not} advocating a full return to pure-symbolic AI. We believe the future of AI should be \textit{neuro}-symbolic: compress \& search with symbolic worldmodels, pattern-match with neural heuristics. But we present this no-neural AI, to show that symbolicism is more powerful than previously thought: it can do general fluid reasoning over causal worldmodels, while still being fully interpretable and verifiable, all for cheap \& fast on already-democratized CPU hardware.
+
+In other words: symbolic reasoning can be a win for AI capabilities, AI safety, \textit{and} fighting the concentration of power in AI.
+
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{What's Symbolic AI, Neural AI, Neuro-Symbolic AI, ARC-AGI?}
+
+Artificial Intelligence is a spectrum.
+
+On one end, there's \textbf{Symbolic AI}: all facts, skills, and heuristics are explicitly written down as code. On the other end, there's \textbf{Neural AI}: little to no explicit built-in knowledge, just let the universal approximator \citep{universal_approximation} approximate a function from millions of data points. These two approaches map — very loosely — onto `logic' and `intuition', or System 2 and System 1 \citep{thinking_fast_and_slow}, and have the pros \& cons you'd expect: Symbolic AI excels at rigour but lacks flexibility, Neural AI is flexible but lacks rigour.
+
+But humans have \textit{both} logic and intuition\textsuperscript{[citation needed]}. For this reason, many researchers \citep{algebraic_mind,neuro_sym_fdn,bengio_1_to_2,third_ai_summer,third_ai_wave} have long advocated for a Third Wave in AI: \textbf{Neuro-Symbolic AI}, to get the best of both worlds. This phrase, by intention, is a wide umbrella. So in the playful spirit of \citet{five_worlds}'s Five Worlds, here's Seven Lifeforms along the neuro-symbolic spectrum: (FIGURE 1) (For perpendicular taxonomies of Neuro-Symbolic AI, see \citet{third_ai_summer, third_ai_wave}) // can a citation be *in a Fig caption*?
+
+(TODO Figure 1: A single figure with concise text, as previously described. To add: \textit{where previous ARC solutions and program synthesis methods like DreamCoder or fluid-intelligence methods like Tenanbaum's EMPA lie.})
+
+// TODO Figure 1: a spectrum showing pure neuro ("soft", implicit) <-> pure symbolic ("hard", explicit), with living-organism metaphors
+// 1. \textbf{Slime Mold:} all soft, pure neuro. Example: Alex*Net*
+// 2. \textbf{Octopus}: almost all soft/neuro, some hard/symbolic helpers (beak, tool use). Example: LLMs with calculators, code REPL, tool use. whoo
+// 3. \textbf{Crab / Exoskeleton}: soft/neuro core with extensive code/symbolic harness. Example: LLMs in very detailed code harness // AlphaFold/AlphaZero/AlphaCode/AlphaDev
+// 4. \textbf{Coral}: fully mixed core where soft/hard parts grow \& maintain each other. // AlphaProof
+// 5. \textbf{Crow / Endoskeleton}: hard/symbolic core with extensive neural guidance. Example: Embedding-based Knowledge Graphs for drug discovery
+// 6. \textbf{Tree}: almost all hard/symbolic, some soft/neural helpers (leaves, fruits). Example: IBM Watson, Google's Knowledge Graph I think?
+// 7. \textbf{Crystal}: all hard, pure symbolic. Example: Alex*Not* (this paper) (yes crystals aren't "alive" but whatever)
+
+There's another important distinction between two kinds of intelligence, in both humans \citep{cattell} and AI: \textbf{crystallized intelligence}, the summed knowledge \& skills from problems you've solved before, and \textbf{fluid intelligence}, the ability to \textit{efficiently} understand \& solve problems you've never met before. (`efficiently' is crucial: with unlimited resources, even zero-intelligence brute-force could solve any task. \citep{chollet_intelligence})
+
+Both Symbolic and Neural AI do fine on \textit{crystallized} intelligence: with Symbolic AI, we directly hand-craft expert facts \& heuristics; with Neural AI, we can fit a neural network to everything everyone everywhere has ever posted online. However, both approaches struggle with \textit{fluid} intelligence: Symbolic AI fails outside its narrow domain, while Neural AI generalizes poorly outside its training distribution. But, as proponents of Neuro-Symbolic AI argue, the symbiosis of both approaches could unlock \textit{fluid} intelligence for AI.
+
+Which brings us to the \textbf{ARC-AGI} benchmark series! First introduced in \citet{chollet_intelligence}, long before LLMs went mainstream, the \textit{Abstraction and Reasoning Corpus for Artificial General Intelligence} (ARC-AGI) benchmark is a test of \textit{fluid} intelligence for AI. The tasks are easy (even fun!) for humans, but hard for AIs. Contrary to popular misconception, the benchmark was \textit{not} designed to detect "are we there (AGI) yet", but to detect \textit{the bare minimum} level of fluid general intelligence; the original ARC-AGI is to novel reasoning, as MNIST is to machine vision.
+
+Here's how ARC-AGI-1 (2019) and ARC-AGI-2 (2025), the first two benchmarks in the series, worked. You (human or AI) get a few demonstration "before and after" pixel grid pairs. Your goal: figure out the hidden rule, and apply it to the test examples. (See Figure TODO) 
+
+// TODO Figure, examples for ARC-1 and ARC-2. Mention in caption: the difference between 1 \& 2 is they removed brute force, better calibration to human difficulty, more hidden rules composed
+
+Importantly: \textit{no two tasks have the same rule, every task is a unique problem.} This hits the weak spots of both Symbolic AI (rules can't be hard-coded in advance) and Neural AI (with only 2 to 6 examples per rule, that's too few for conventionally-trained networks to learn). But, to make tasks fair, all hidden rules use \textit{only} the ``Core Knowledge Priors'' \citep{core_knowledge_priors}, concepts that are near-universal to all humans: movement, colour, counting, same-different, etc. In practice, most people could solve most tasks, with a median attempt time of 2.3 minutes. \citep{arc_agi_2}
+
+ARC-AGI-3 was previewed in mid-2025, and released in early 2026.  \citep{arc_agi_3}  Immediately, LLMs that previously scored 80+\% on ARC-AGI-1/2 plummeted back down to <1\%. (This was \textit{not} ``moving the goalposts'', this was \textit{upgrading} the goalposts from Little League to Regionals. Going from ARC-AGI-1 to -2 to -3 $\approx$ going from MNIST to CIFAR-100 to ImageNet.)
+
+ARC-AGI-3 is still ``hard for AI, easy/fun for humans'', but this time, the tasks were full mini-games! All games could be 100\% solved by humans, with median attempt time of 7.4 minutes. The videogame format targets modern AI's weak spots, such as causal worldmodels, continual learning, and long-horizon planning. Like before, each game has a novel set of hidden rules, you need your fluid intelligence to discover them and win. (See Figure TODO)
+
+// PIC TODO - graphic of the m0r0 "Mirror Maze" game
+
+(Critics call ARC-AGI `just a gridworld', but Go is also `just a gridworld' — and by targeting it, DeepMind pushed the frontier of what deep learning could do, and, well, we're all living the consequences. Point is: simple `non-real-world' challenges \textit{do} change the real world!)
+
+The creators of ARC-AGI-3 knew, even before launch, that frontier LLMs \textit{with harnesses} could get near-perfect scores on unseen games. \citep{arc_agi_3, hill_climbing_arc_3} After launch, many LLM+harness systems got 95+\% on the Public Demo set (\textit{not} Private Eval), with techniques like programmatic memory \citep{prolong_arc_3} and programmatic retrodiction \citep{retrodict_arc_3}. In September 2026, GPT-6 Astra + Provider Adapter harness got an \textit{official} Verified score of 99.9\% on the Private Eval, by building compressed algebraic notations for the games. \citep{astra_arc_3}
+
+Programmatic retrodiction, algebraic notations — these are all classic examples of \textit{symbolic} reasoning! This is a sign of a trend, but we, the authors, think it could go even \textit{further}. All the above AIs are neural-first, symbolic-assisted. We want more experiments in AIs that are \textit{symbolic}-first, neural-assisted. (See: the left vs right half of Figure 1.)
+
+But, if we entered the ARC Prize 2026 contest with an AI using \textit{any} neural assistance, folks may just round it off to ``meh that's a harness'' or ``meh that's tool calls''. So, as an experiment in minimalism, we attempted something that most of the ARC community didn't think was possible:
+
+A \textit{pure-symbolic} solver — with non-trivial success \& sub-penny cost per task — across \textit{all 3} ARC-AGI benchmarks.
+
+\subsection{Quit tooting your own horn and tell us what you did}
+
+In 201//, when Neural AI wasn't cool, //////'s \textit{AlexNet} showed the world the power of big-data, GPU-accelerated big-compute, pure Neural AI. We'd like to do the opposite. In 2026, when Neural AI is the dominant cool paradigm, we present \textit{Alex\textbf{N\textbf{o}t}} (TODO underline), a program inductor for ARC-AGI that uses small-data, zero-GPU small-compute, pure Symbolic AI.
+
+// NOVEL??? Novelty How novel is the approach relative to existing public research?
+
+\textit{AlexNot}'s architecture was directly inspired by 3 ancient principles from cognitive science: \textit{understanding is compression, problem-solving is search, intuition is pattern-matching.} Concretely: \textbf{our solver finds the best Python programs that \textit{compress} the before/after pixel grids, using an island-model evolutionary \textit{search}, guided by \textit{pattern-matching} ``core knowledge prior'' heuristics.}
+
+Here's an example of AlexNot in action, on level TODO:
+
+// TODO Figure - AlexNot solver IN ACTION
+
+(Actually, some extra details: \textit{AlexNot} also 1) searches for the "scene/shape parser" settings that give the simplest compression/representation of the grids, and 2) annotates the scene/shapes with helper properties like [shadow\_twins] or [rank\_area] to help the transformation-program search.)
+
+// TODO Figure - full AlexNot pipeline
+
+Finally, we simply apply the parser+transformation programs that \textit{AlexNot} abducts from the demonstration pairs, to the test inputs! This pure-symbolic solver scores:
+
+\begin{itemize}
+    \item X\% on the ARC-AGI-1 Public Eval
+    \item X\% on the ARC-AGI-2 Public Eval
+    \item X\% on Mini-ARC (a variant of ARC-AGI that's all 5x5 grids)
+    \item X\% on Concept-ARC (a variant of ARC-AGI with higher focus on the Core Knowledge Priors)
+\end{itemize}
+
+It's worth bragging (TODO strikeout) emphasizing: this solver uses \textit{zero} GPU, and on the ARC-AGI-2 Public Eval, it spends an average of only \~30 seconds per task (\~10 seconds if successful, \~40 seconds if failed), \textit{on a consumer-grade laptop!} This means, at the current market price for cloud CPU, our solver requires only \$X per task -- \textit{X orders-of-magnitude cheaper} than the cheapest equivalent-scoring neural solutions. (TODO NVARC, LLM)
+
+// Pic: pareto frontier
+
+Next, for the official ARC-AGI-2 2026 contest, we also added a fallback: if \textit{AlexNot} can't find a program with 100\% predictive accuracy across all pairs, it runs the \#1 winning open-source solution from 2025: TODO's NVARC. NVARC is a pure-neural \textbf{transduction}: it directly predicts the output grids, without coming up with a program to explain the transformation, or even any human-readable Chain of Thought. On the ARC-AGI-2 Public Eval, \textit{AlexNot} (pure-Symbolic abduction) and \textit{NVARC} (pure-Neural transduction) only partially overlap on what tasks they successfully solve: // TODO a previous winner paper found the same https://arxiv.org/pdf/2411.02272
+
+// TODO Figure - Harness
+
+Together, the \textit{AlexNot}-else-\textit{NVARC} ensemble scores \textbf{X\% on the ARC-AGI-2 Public Leaderboard} -- a boost of +X\% over just-\textit{AlexNot}'s score on ARC-AGI-2 Eval!
+
+I wouldn't call this two-AI ensemble "Neuro-Symbolic", since the two solvers \textit{don't interact with each other at all}; solver \#2's "just" a fallback for solver \#1. It'd be like calling a cat next to a calculator a "Cyborg", and the cat doesn't even use the calculator. Still, we believe it \textit{lends evidence} to the promised benefit of the Neuro-Symbolic approach: if Neural AI could do everything Symbolic AI could do or vice versa, there'd be no benefit to combining them into Neuro-Symbolic AI. But as seen in the above Venn diagram, their successes partly \textit{but not fully} overlap, which is why there was a +X\% benefit in their combination. And that's just with the most naïve possible combination: a fallback option! A more sophisticated combination may do even better.
+
+Finally, to tackle ARC-AGI-3 (the interactive benchmark), we wrapped \textit{AlexNot} is a slightly more sophisticated harness. The before/after pixel-grids are now frames N/N+1 of the videogame; this lets \textit{AlexNot} abduct the rules of a never-before-seen puzzle game, \textit{as a readable, runnable Python program}. Once we have that symbolic Python program, we can "just" run a classic AI planning algorithm on it (mostly A* with extra modifications) and efficiently solve the game. The only extra thing we needed to add were "Core Exploration Priors", to guide the AI to efficiently interacting with things, to discover the rules \& win condition.
+
+// TODO Figure -- the harness
+
+Admittedly, our \textit{AlexNot}-with-harness solver shows severe "spiky intelligence" on the ARC-AGI-3 Public Demonstration games. When it "gets" a game, it \textit{really} gets it, and gets a high Relative Human Action-Efficiency (RHAE) score, even 100\% on two of the games. But if it doesn't "get it", it just doesn't get it:
+
+// TODO Figure - RHAE on all
+
+Which raises concerns, that we may have unintentionally overfit for the Public Demonstation games (and perhaps we unconsciously did). But either way, on the hidden dataset, our solver scores \textbf{X\% on the ARC-AGI-3 Public Leaderboard}, comparable with TODO. Again, with zero GPU, and spending an average of \~2 minutes per game on a consumer-grade laptop. At current cloud CPU prices, our ARC-AGI-3 solver only spends \$X per task -- \textit{X orders of magnitude cheaper} than the cheapest equivalent-scoring frontier LLM.
+
+"Did you just overfit to this benchmark" is a concern for any AI on any benchmark, but admittedly it's a more salient concern for pure-Symbolic AI: after all, we \textit{did} hand-write this code. (TODO: well, us and Claude Opus 4.6. Everyone say "thank you Claude Opus 4.6".) However, we'd like to argue for the generality and theory-driven-ness of \textit{AlexNot}, because its architecture was \textit{directly} inspired by ancient principles from Cognitive Science, some pre-dating AI or Computer Science \textit{or even Cognitive Science itself}. The principles are:
+
+\begin{enumerate}
+    \item \textbf{Understanding is Compression} -- The best model of some data, is the simplest representation that accurately re-predicts/re-creates it.
+    \item \textbf{Problem-Solving is Search} -- All problem-solving is "just" search through some topological space (game tree, state graph, neural manifold, etc). The real question is, how can we make that search \textit{actually tractable?}
+    \item \textbf{Intuition is Pattern-Matching} -- To make that search tractable, we need innate \& learned heuristics. Often, in the form of "when (pattern observed) then (try this)".
+\end{enumerate}
+
+The following three sections of this paper will cover each principle in turn: briefly explaining the theory, prior work (including applications to ARC-AGI itself), how \textit{we} applied this theory to ARC-AGI, ablation studies \& other results, limitations, future research questions, etc.
+
+After that, our Discussion talks shop about how (tentatively) we could use these principles beyond solving ARC-AGI, to building real-world-useful Neuro-Symbolic AIs. We'll also briefly talk about how going Neuro-Symbolic (or more-Symbolic) could be a win for AI capabilities, AI safety, \textit{and} fighting the concentration of power in AI! Finally, we conclude with a conclusive Conclusion.
+
+And with that Overview viewed over, let's look at the 3 Principles! Starting with what William of Ockham must have shaved with...
+
+\section{Understanding Is Compression}
+
+\subsection{The Theory}
+
+// TODO pic of galaxy/comets/planets/apple/etc 
+
+The idea that -- all else being equal -- simpler explanations are more likely to be true, is an ancient idea. Most famously, "Occam's Razor", but this idea could be found as early as in Aristotle's writings: "We may assume the superiority \textit{ceteris paribus} [all other things being equal] of the demonstration which derives from fewer postulates or hypotheses." (TODO cite)
+
+Skipping 2,000+ years later, this idea could finally be made mathematically rigorous, with information theory \& the idea of \textit{compression}. If we want our scientific models to predict \textit{complex} real-world data, yet our models are as \textit{simple} as possible, that's equivalent to finding a good compression: a low-bits thing that lets you accurately reconstruct a high-bits thing, like a .zip file being accurately unpacked into a larger file. Both scientific models and compression algorithms value the same two metrics: \textbf{Simplicity + Accuracy}. Most predictive bang for least bits-of-information buck. As cosmologist John Barrow once wrote: (TODO cite) \textit{“Science is, at root, just the search for compression in the world.”}
+
+(This also ties to Bayesian reasoning. The \textit{simpler} a hypothesis is, the higher its prior probability. The more \textit{accurately} a hypothesis predicted actual observations, the higher its likelihood. Posterior = Prior x Likelihood, so, we should most believe hypotheses that score highest on simplicity \textit{and} accuracy.) // TODO more: Bayesian, MCMC, approximation
+
+But it's not "just" scientific modelling! Even everyday perception \textit{is} compression. For example, look at the below figure. All that actually exists is \textit{irregular} black shapes, but your mind "compresses" them into \textit{more-regular} representations: a spiky ball, a square over circles, a worm hugging a cylinder.
+
+// TODO figure
+
+In sum: Compression = Simple+Accurate models = Understanding, in science and everyday life.
+
+\subsection{Prior Work}
+
+Other computer-science accounts of "understanding = compression" include Minimum Description Length, Solomonoff Induction, Speed Prior (TODO cite all). The Hutter Prize bets on the understanding = compression hypothesis, and gives prizes for people to better compress Wikipedia. TODO Eureqa \& symbolic regression. Auto-encoders learn robust general representations. LLMs are a more efficient compression algorithm than .zip (etc), and vice versa, you can use a compression algorithm like (todo) \textit{as a generative language model!}
+
+Finally, applied to ARC-AGI itself, TODO Liao's CompressARC found that \textit{with no pre-training whatsoever}, merely training a neural network to predict the 2-to-5 "demonstration" pairs, with huge regularization, then applying that compressed-network to the "test" inputs... that alone could solve \~20\% of ARC-AGI-1 tasks!
+
+(TODO compare/contrast best-first search ARC?)
+
+\textbf{// Prior work: Previous approaches related to yours - highlight similarities and differences}
+
+\subsection{How we applied this principle to ARC-AGI }
+
+\textit{Simplicity + Accuracy}. That's all \textit{AlexNot} selected for, in its evolutionary search for programs that best predict each task's demonstration pairs. In that sense, our project was very similar to CompressARC's approach, except while their compressions were neural networks, we used \textit{readable, pure-symbolic Python programs.} 
+
+// Figure 2x2, same level but 4 programs...
+
+\subsubsection{DSL}
+
+(Actually, before we can select for simple+accurate programs, we needed a Domain Specific Language (DSL) to have programs \textit{at all}. TODO Hodor. Like TODO, and in the spirit of the ARC-AGI benchmark, our DSL is restricted only to the Core Knowledge Priors: colour, position, same/different, counts, movement, gravity, collision, etc. You can read the full DSL documentation in our open-source code.) // avoid overfit
+
+\subsubsection{Finding the most simple+accurate transformation programs}
+
+TODO
+
+The "simplicity" part of a program's cost is a weighted sum of the following: \textit{(Note: lower scores are better!)}
+
+\begin{itemize}
+    \item Length of the program, in tokens.
+    \begin{itemize}
+        \item (Tokens, not characters, so that a word like "rotate" doesn't cost more than "flip", just because it's a longer word in English. Some tokens were also less/more costly than others, to encode for human priors of what concepts are more likely than others, e.g. 'count the shape's width' is more natural than 'count the shape's area')
+    \end{itemize}
+    \item Number of \textit{unique} tokens.
+    \begin{itemize}
+        \item (TODO close in idea-space)
+    \end{itemize}
+    \item Number of "hard-coded" values.
+    \begin{itemize}
+        \item (Magic constants like specific numbers or colours were lightly penalized, to discourage 'arbitrary-ness'.)
+    \end{itemize}
+    \item Number of actions the program takes.
+    \begin{itemize}
+        \item (Speed Prior and Levin)
+    \end{itemize}
+\end{itemize}
+
+// Figure: examples for each
+
+The "accuracy" part of a program's cost is a weighted sum of the following: \textit{(Again, lower is better.)}
+
+\begin{itemize}
+    \item Number of \textit{wrongly-predicted} output pixels.
+    \begin{itemize}
+        \item (If the predicted/actual output grid dimensions don't match, all pixels outside of their bounding-box overlap is marked wrong.)
+    \end{itemize}
+    \item Number of wrongly-predicted \textit{edges}.
+    \begin{itemize}
+        \item (TODO) good gradients for evo!
+    \end{itemize}
+    \item Distance between \textit{Gaussian-blurred} versions of the predicted/actual outputs.
+    \begin{itemize}
+        \item (TODO) good gradients for evo!
+    \end{itemize}
+\end{itemize}
+
+// Figure: examples for each
+
+\subsubsection{Finding the most simple+accurate parser settings}
+
+As briefly noted in the Overview, \textit{AlexNot} also searches for the best \textit{parser-settings}, e.g. what's the background colour, do diagonally-connected pixels count as part of the same shape, etc. All parser-settings by design have 100\% accuracy, so the only thing to select for is simplicity. We just try all possible parser-settings (it's a small enough search space) then score the simplicity of their resulting scene/shape graphs. Simplicity-cost is a weighted sum of: number of shapes, number of \textit{unique} shapes, \textit{edit-distance} between before/after shapes \& scene-properties.
+
+TODO Chunk Weird Output Level 
+
+\subsection{Extra commentary}
+
+// naahhhh. Appendices? TODO Histogram of DSL words used, TODO histogram of program lengths, parser settings used
+
+// Generalize Universality
+
+// Progress How much does the paper increase the overall chance of anyone achieving 85 on ARC-AGI?
+
+Limitations \& further research for improved ARC-AGI-2/3 scores: transform inside a scene, primitives it doesn’t have, no macros in 3 or saving heuristics like DreamCoder TODO //  limitations: flat scene graph
+
+// also robustness to noise?
+
+\section{Problem-Solving is Search}
+
+// Pic: Hanoi, sierpinkski pathfinding through some landscape
+
+\subsection{The Theory}
+
+In the haystack of all \textit{possible} solutions, there's the few needles of \textit{actual} solutions.
+
+Every problem-solving algorithm can be reframed as a search algorithm, in some possibility space. For discrete-state problems like Tower of Hanoi (see above Figure //), Rubik's Cube, Go, and ARC-AGI-3 games, the possibility space is a graph, where edges are actions, and nodes are game-states. For continuous-state problems like finding good weights for a neural network, or robots navigating real-world environments, the possibility space is a manifold. For discrete program induction (our thing), the space is all possible programs.
+
+"Problem-Solving is Search" is an old principle in AI: Newell/Simon(?)'s \textit{General Problem Solver} is one of the earliest and most famous implementations of this idea. Later classic-planners like \textit{A*}, meta-heuristics like \textit{evolutionary algorithms}, and machine-learning techniques like \textit{gradient descent}, are all "just" ways to efficiently search through a possibility space. Efficiency matters! As Chollet (TODO) argues, pure brute force can solve any problem with infinite time \& zero intelligence. So what intelligence \textit{is}, must be \textit{how efficiently} (in terms of time, memory, data) you can solve problems.
+
+But which search algorithm does the \textit{human mind} use?
+
+Several cognitive scientists, over several decades, seem to (semi-independently) converge on the same general idea: \textbf{lots of parallel sub-conscious modules, coordinate through a small sequential conscious bottleneck.} Proposals in this vein include: TODO cite \textit{Pandaemonium}, TODO \textit{Blackboard}, Dennett's \textit{Fame in the Brain}, TODO \textit{System 1 and System 2}, TODO \textit{Global Workspace Theory}.
+
+// Figure
+
+"Large parallel tests, few winners re-broadcast" is similar to Evolutionary Algorithms: pick a few winners from lots of candidates, mutate those winners to get next round's candidates, repeat. Funny how Darwinian evolution gave our minds a small-scale variant of Darwinian evolution itself.
+
+// TODO: Optimal experiment design, Optimal planners, approximations
+
+\subsection{Prior Work}
+
+Evolutionary Algorithms are a classic in program induction. (TODO cite) Skipping ahead to the more modern work, ////'s FunSearch found ///results//. Applying to ARC-AGI specifically, Jeremy /////'s \textit{TODO} was a harness on Grok that "simply" ran an evolutionary search for the best program, where Grok proposed modifications to programs. (Pedantic note: unlike Darwinian evolution, the "mutations" here are not blind, they're somewhat-intelligent heuristics. The ARC Foundation// \textit{specifically} highlights neural-heuristic-guided program synthesis as a promising way to beat the ARC-AGI benchmark.)
+
+However, our \textit{AlexNot} is a pure-symbolic solver, to make a point about how Symbolic Is Cool Again. None of the winning entries to the ARC-AGI contest, since the annual prizes started in 2024, have been pure-symbolic. But, there were a few pure-symbolic attempts in the pre-prize years: ///// made a Domain-Specific Language for ARC, and solved ///\% with \textit{just brute force}. ///// solved ///\% with a simple best-first-search for simplest + accurate programs -- the two metrics for a good compression! Our approach is closest in spirit to ////, except we go for a whole \textit{Pandaemonium}-flavoured evolutionary search, for the best-compression program. 
+
+\subsection{How we applied this principle to ARC-AGI }
+
+There's two different areas where we use Problem-Solving = Search. There's the \textit{program inductor}, used in our solution for both ARC-AGI-2 and ARC-AGI-3, which finds programs that best explain the data. Then there's the \textit{game planner}, used only in the ARC-AGI-3 harness, where it uses the program inductor's results to plan the optimal moves for the game.
+
+\subsubsection{How we did search in \textit{AlexNot,} the program inductor:}
+
+// Figure - evolutionary with annotations
+
+It's mostly plain evolutionary search, where fitness is the combined Simplicity + Accuracy score defined in Section 2.3.2. The only three additional features were:
+
+\begin{enumerate}
+    \item Island-based evolutionary search (TODO). Instead of \textit{just} selecting for the programs with the best score across all demonstration pairs, we \textit{also} select programs with the best score for Pair 1, Pair 2, etc. This allows for more useful exploration, than randomly selecting runner-up candidates (which, empirically, we found didn't help at all).
+    \item Execution-guided program synthesis (TODO). Each heuristic, which proposes edits to the winning programs so far, also sees \textit{those programs' predictions}, which can be compared against the inputs \& outputs. This lets each heuristic see "what's \textit{not} been predicted so far", and can efficiently focus on that.
+    \item The heuristics also use information from the "annotation" step, as described in Section 2.3.3. For example, how many "twins" a shape has, its rank in terms of area, etc.
+\end{enumerate}
+
+// BAYESIAN
+
+\subsubsection{How we did search in the ARC-AGI-3 harness around \textit{AlexNot}:}
+
+// Figure - ARC-AGI-3 harness
+
+A slapdash mix of classic planning algorithms. See Figure // for the flowchart. If our program inductor has a worldmodel \& win-condition for the game, use weighted-A*, deletion relaxation, means-ends analysis, etc, to try to find a solution. If that fails, we fall back to "Core Exploration Priors": try mashing buttons, try making things collide with other things, try making things go somewhere it hasn't been before, try sorting \& aligning things, try matching \& copying patterns.
+
+(Open research question: like how //// proposed there are near-human-universal Core Knowledge Priors -- e.g. movement, numbers, agency, etc -- might there be Core Exploration Priors, that almost all humans fall back on, to efficiently gain knowledge about the world? Look at a toddler, and you may suspect "make things collide with other things" is an innate exploration-goal, along with "try eating it".)
+
+\subsection{The Results}
+
+See full chain of thought, get prob distribution approx Bayes? // Ablation: A* alone got a bunch! // also robustness to noise?
+
+\subsection{Extra Commentary}
+
+Limitations not compressing macros, or fuller means-ends, other ways to improve research
+
+
+\section{Intuition is Pattern-Matching}
+
+\subsection{The Theory}
+
+// Figure: 
+
+\textit{"Cognition is recognition"}, the cognitive scientist Douglas Hofstadter once said.
+
+// Pandaemonium, Blackboard
+// TODO: Where NEURAL would best work, full approximator with verifier "System 1" vs "System 2"
+
+\subsection{Prior Work}
+
+\subsection{How we applied this principle to ARC-AGI}
+
+As previously described, our \textit{AlexNot} program inductor uses evolutionary search, to find the programs that best compress the data. But unlike Darwinian evolution, the "mutations" aren't blind -- every winning program gets fed to an ensemble of "daemons", like in the \textit{Pandaemonium} architecture. Each daemon is a function that takes in the data + the currently-best programs + their predictions (for execution-guided search), does some pattern-matching, and returns a set of new candidate programs.
+
+(In our code we named them "monkeys" instead of "daemons", for whimsy, and to invoke the ideas of evolution, code monkeys, millions of monkeys on typewriters, pattern-matching monkey-see-monkey-do. Besides, "daemon-guided evolution defeats ARC's covenant" felt too kabbalistic.)
+
+// Figure
+
+To avoid overfitting our solver to ARC-AGI, and to stay in line with the spirit of the ARC-AGI benchmark, \textit{all monkeys pattern-match only on Core Knowledge Priors}, like movement, number, and so on. Actually, there's one more category we think is an important core prior, but isn't listed in ////'s original list: \textbf{causality}. Many from Hume to Pearl //// have made the case for "cause-and-effect" being a knowledge prior. We also have "compression" and "exploration" monkeys, to help the evolutionary search explore simpler \& different candidate programs.
+
+Here's a list of all monkeys, and how they generate new candidate programs:
+
+\begin{itemize}
+    \item \textbf{Movement (2D):} Notices when shapes move between the before/after scenes, then suggests programs with: absolute movement, relative movement, physics actions (gravity, attraction, stickiness), agentic actions (fitting, pathfinding).
+    \item \textbf{Movement (3D):} Notices when shapes seem to move up or down a layer (e.g. shape A now overlaps shape B, when it was the other way before), suggests programs for that.
+    \item \textbf{Color:} Notices when shapes, shape holes, or scene background changes color, and suggests programs for that.
+    \item \textbf{Transformations (Flip/Rotate/Scale):} Notices when shapes transform between the before/after scenes, then suggests programs that: flip, rotate, scale. (Will also notice if the scene-grid re-scales or does a "camera pan", suggests programs for that too.)
+    \item  \textbf{Deformations (Expand/Shrink/Slice):} Notices when shapes gain outlines, grow/shrink in some direction, are sliced, etc, then suggests programs for that.
+    \item \textbf{Create/Destroy:} Notices when new shapes appear, suggests adding/copying them, or directly find-and-replacing pixels. Notices when shapes disappear, suggests hiding them.
+    \item \textbf{Focus:} Notices when the "camera" changes dimensions, sees what's still in frame, and suggests "cropping to" those shapes, as if your visual focus is changing. (only applicable to ARC-AGI-1 and ARC-AGI-2, since the scene grid dimensions never change in ARC-AGI-3.)
+    \item \textbf{Arithmetic:} Notices when numerical values seem to be related, suggests programs that add/subtract/multiply/divide those values, or create a for loop for an arithmetic sequence.
+    \item \textbf{Causality (within a pair):} Notices \textit{coincidences} between hard-coded values in programs, and properties of shapes/the scene. For example: maybe the current winning program is "paint all 2-hole gray shapes blue", and the monkey notices that there's a 2-hole blue rectangle, so the monkey suggests joining the two like a database-join: "paint all gray shapes the same color as the rectangle with the same number of holes."
+    \item \textbf{Causality (across pairs):} Noticing \textit{which before/after pairs} some programs perform better than others, then combining them with if-else blocks, to create a program that works for all pairs.
+    \item \textbf{Compression:} Randomly deletes arguments from functions, lines of code, or entire blocks of code.
+    \item \textbf{Exploration:} Randomly alters numerical values, and replaces properties and functions with nearby-in-meaning "synonyms". (e.g. "color" => "start\_color")
+\end{itemize}
+
+// Highlighting shared helpers: ingroup/outgroup, "Bongard", similar to causality
+
+\subsection{The Results}
+
+// Histogram of which monkeys helped // in CoT
+
+\subsection{Extra Commentary}
+
+Further research: use the DSL etc to train neural heuristics, smaller with TRM maybe
+
+\section{Discussion }
+
+TODO Sum future research for advancing in ARC-AGI-2 or -3 specifically
+
+\subsection{From Gridworld to Realworld}
+
+/////'s \textit{Alex\textbf{Net}} was limited to one task and one dataset, but its general principles -- backprop, big data, big GPU compute, etc -- inspired the current boom in Neural AI. Likewise, if we may be so bold to suggest the parallel: \textit{Alex\textbf{Not}} is limited to ARC-AGI, but we hope it's a solid proof of concept that the general principles -- compressing data into symbols, search for \& using those symbols, all guided by pattern-matching heuristics -- can lead to a boom in more-symbolic or Neuro-Symbolic AI.
+
+As mentioned in the intro, "Neuro-Symbolic" is very broad, as if "cyborg" included everything from bionic eyeballs to wearing glasses. So, let's be precise on \textit{exactly what parts} of an AI could benefit from being Neural, vs being Symbolic, and how they could interact. Since Symbolic's strength is robust rigor, while Neural's strength is flexibility, we advocate the following division of labour: an AI's \textit{compressed understanding of the world} should be pure-Symbolic, and the search's \textit{verifier} should always be pure-Symbolic, but the search's \textit{proposers} (i.e. heuristics) can be Neural. (This is \~approximately the same approach //TODO// DreamCoder and AlphaGo used, except AlphaGo's symbolic worldmodel was given (it's just the game of Go) not learned.)
+
+// TODO Figure - 
+
+Here's some napkin-sketch examples outside of ARC-AGI: (remember, "look at where my finger's pointing, not the tip of my finger.")
+
+\begin{itemize}
+    \item \textbf{Robotics:} Like how \textit{AlexNot} compresses small 2D pixel grids into 2D objects, robots could compress large 2D video feeds into 3D objects, with probability distributions over their position/momentum/rigidity/etc. Efficient world-modelling from sparse noisy data, is needed for robots working \textit{safely} in novel environments (not just warehouses or roads in stable-climate cities), like in the home, healthcare, surgery, search and rescue. (TODO cite related research) (I feel morally compelled to note: yes, this is dual-use, psychopathic regimes use robotics to kill people. But to be frank, I don't think "working safely" was ever the bottleneck for mass murder. The long-term solution to dictatorships is democratizing power; see next subsection.)
+    \item \textbf{Chatbots \& Agents:} Right now, we're trying to cram as much knowledge and reasoning as we can directly into language models. But why not use language models \textit{only for language} -- a small LM "translates" back and forth between human-facing natural language \& machine-facing symbolic representations? (for concreteness: the symbols could be a Knowledge Graph, or probabilistic variants like Probabilistic Soft Logics or Logic Tensor Networks TODO cite.) Neural heuristics can propose ideas, but all chains-of-thought \textit{must} go through a pure-Symbolic verifier. This would make chatbots \& agents orders of magnitude cheaper: instead of re-training a trillion-parameter thing, you just update a knowledge database like you do any database, and re-train a few small modular neural networks. But more importantly, symbolic reasoning is needed in settings where \textit{guaranteed 100\% auditability \& 0\% hallucination} is a requirement: in medicine, law, bureaucratic work, handling personal/organization finances, safety-critical engineering fields. (TODO cite working papers) // gradient-compatible
+    \item \textbf{General-purpose "Scientist AIs":} ARC-AGI is the minimum-viable test for \textit{abductive} reasoning, the heart of science. A Neuro-Symbolic AI similar to DreamCoder or AlexNot could be a \textit{non-agentic} Scientist AI (TODO Bengio). The same way stats packages have a "find the line of best fit" method, one could in principle create a "find the \textit{scientific model} of best fit" method. (Where the model is in the form of a Python program, or set of differential equations, cause-and-effect graphs (Pearl), etc, or a combination thereof.) TODO cite working examples. And it'd do so \textit{without} requiring agentic AI. (well, "agency" is vague; but even if it's "agentic" it's no more so than a sorting algorithm.)
+\end{itemize}
+
+Why are many researchers (including Scientist AI's proposer, Yoshua Bengio) keen on \textit{non-agentic} AI? Well...
+
+\subsection{A win for AI Capabilities, AI Safety, \textit{and} fighting concentration of power in AI}
+
+(This section is less about \textit{AlexNot} and ARC-AGI, more about selling symbolic/causal reasoning TODO ???)
+
+This paper's already belaboured the benefits of symbolic/causal reasoning for \textbf{AI Capabilities}: robust rigorous no-hallucination reasoning in out-of-distribution environments, \textit{and} at orders-of-magnitude cheaper cost. (e.g. our \textit{AlexNot}-with-harness got X\% on the private ARC-AGI-3 set at a total cost of \$X; the cheapest equivalent-scoring frontier LLM did it at a cost of \$Y, \textit{Y orders of magnitude} pricier.)
+
+But more-symbolic AI would also be a win for \textbf{AI Safety}. No, that's not "ahhh Terminator" paranoia, it's more, "how do we, as software engineers, avoid our own Hindenburg or Chernobyl or Lab Leak (TODO footnote) moment?" When you're handling \textit{any} material that has the ability to unleash forces on its own -- combustion, nuclear chain reactions, biological pathogens -- you risk loss-of-control and terrible accidents. While modern LLMs aren't powerful enough (yet?) to be Chernobyl-level dangerous, the current track record of accidents is discouraging: directly abetting the suicide of users (TODO), autonomously discovering \& exploiting zero-day hacks (TODO). Some folks reassure us, "well if this tech isn't safe in field X, governments \& corporations just won't use it in X", but a cursory glance at any technology's history would respond: "lol, lmao".
+
+So, AI safety matters. While "Symbolic core, Neural heuristics" wouldn't solve \textit{all} safety problems, it \textit{would} help with lots of them: TODO
+
+\begin{itemize}
+    \item Interpretability / ELK
+    \item Proving things \textit{from} the AI: Formal verification / Lean spec
+    \item Proving things \textit{about} the AI: Proving properties (agent foundation, causal incentives, CIRL)
+    \item (Useful non-agentic, like Scientist AI, or Open Agency)
+    \item Learning human values, know don't know (Bayesian)
+\end{itemize}
+
+But what if the existential risk isn't \textit{accidental} AI loss-of-control, but humans \textit{intentionally} using AI to seize control over everyone else, to quash dissent \& torture their enemies? As 20th-century history shows, you don't need AI for psychosis; humans inflicted fates worse than death on each other, including children, all by themselves. AI Safety advocates believe misaligned AGI risks human extinction, but I think the field underrates the risk that AGI \textit{aligned to a malevolent human} risks a fate \textit{far worse} than extinction. People \textit{want} Hell to exist. (As nobly-intentioned as the \textit{Pause AI} movement is, I must say: "you're worried that AI \textit{could} be deceptively-aligned power-maximizers... so you want to give control of its development to American \& Chinese politicians we \textit{know} are deceptively-aligned power-maximizers??")
+
+That's why we must fight against power-concentration in AI, and for \textbf{democratized AI}. The ARC Prize helps with this, by requiring all contest winners to be open-source, not paywalled behind venture capital. Open-source is absolutely a \textit{necessary} condition for democratized AI -- but it may not be \textit{sufficient}. Consider DeepSeek //FULL//. Sure, it's open-\textit{weights}, and a regular citizen could run a distilled DeepSeek locally on a high-end laptop, but a regular citizen can't \textit{audit or train} a DeepSeek-level model locally. This matters for democratization: if anyone can \textit{run} an AI, but only the rich \& powerful can \textit{create} those AIs, they can still sneak their manipulation into it.
+
+But, here's how open-source, "Symbolic core, Neural heuristics" AI could help decentralize power:
+
+\begin{itemize}
+    \item \textbf{Transparency:} Symbolic reasoning is auditable by default!
+    \item \textbf{Runs on already-democratized hardware:} Symbolic-first with small neural heuristics, only needs CPU + small GPU, which even low-end smartphones have. The \textit{majority} of 8 billion humans already own a smartphone. Even a substantial fraction of people in the poorest countries own smartphones! (To make this \textit{100\%}-democratized hardware: it'd "only" cost \$9 per person per month to buy a low-end smartphone that lasts two years, for everyone who doesn't already have one.) It may sound absurd -- a Claude-level AI running locally on a phone -- but Stockfish, a neuro-symbolic AI with superhuman chess skill, runs fine on a phone! Now imagine: Stockfish for science? Stockfish for citizen empowerment?
+    \item \textbf{The Citizen's Supercomputer:} Now imagine: Stockfish for science? If we use a \textit{massively-parallel} architecture (like /////'s \textit{Pandaemonium} or our \textit{AlexNot}), citizens' smartphones // Package manager for AGI // slice without CBRN // model induction too
+    \item \textbf{The Citizen's Super-coordinator:} Now imagine: Stockfish for coordinated citizen action? Small-data, tailor to one's needs See /////////  Coasean, peer-to-peer CyberSyn, AI repr
+\end{itemize}
+
+\section{Conclusion: The Sweet Lesson of Actually Understanding Stuff}
+
+In Rich Sutton's hit 20// paper(?), \textit{The Bitter Lesson}, he pointed out that most of the time, "just throw more compute at it" beats clever theory, seemingly predicting the success of LLMs with zero in-built innate grammar, let alone in-built reasoning. But now, at the height of LLM dominance, Sutton himself on a 20// podcast disclaimed his own \textit{Bitter Lesson}, saying: "the era of scaling is over". // actually misinterpreted
+
+A cat \& a dog can dream, but we hope our humble gridworld solver lends evidence for a \textit{Sweet Lesson}: theory is cool again! \textit{AlexNot}'s design is explicitly based on core cognitive science principles and architectures. But not only is \textit{AlexNot} based on theory, it \textit{itself} theorizes -- generating human-readable symbolic programs, to understand what it's seeing (ARC-AGI-2), then using these programs-as-mental-models to plan \& beat games (ARC-AGI-3). Symbolic reasoning is also a win for AI safety (interpretability, verification), and democratizing AI (runs on cheap, widespread hardware).
+
+But beyond the practical benefits of more-Symbolic or neuro-Symbolic AI, there's just the \textit{aesthetics} of it. To contrast, imagine we had a dense neural network that perfectly predicts a physical or biological system, but gives us no symbolic model, no equations, no program. We can predict the world, but not understand it -- what a Phyrric victory! As the mathematician William P. Thurston once wrote, in the wake of computer-aided proofs (emphasis added):
+
+> [The idea that mathematics is all about results] perpetuates the myth that our progress is measured in units of standard theorems deduced. This is a bit like the fallacy of the person who makes a printout of the first 10,000 primes. \textbf{What we are producing is \textit{human} understanding. }We have many different ways to understand and many different processes that contribute to our understanding. We will be more satisfied, more productive and happier if we recognize and focus on this.
+
+So, as indispensable as scaling will be, even for future Neuro-Symbolic AI -- let's take time to properly \textit{understand understanding} -- so that we may make AIs that uplift \textit{our} human understanding of this world.
+
+
+\section{Acknowledgments}
+
+Our deepest thanks to our early draft readers: //names//. Any remaining errors are solely the responsibility of Suzie the Scapegoat. (emoji? footnote)
+
+Nicky Case would also like to thank her Patreon/Ko-Fi patrons for financially supporting her for // months, while she vagueposted the whole time, "I'm working on some Symbolic AI thing, it'll be open-sourced by end of year, please hold". I hope the wait was worth it! Thank you: //names// 
+
+Finally, thank you to Claude Opus 4.6 — for being a tireless pair-programmer, delightful brainstorming partner, and good bot.
+
+\section{References}
+
+// Then, references...
+
+\section{(ARC Paper Prize Metrics...)}
+
+Evaluation Rubric  Papers are evaluated equally based on the following rubric, with a score from 0 (lowest) to 5 (highest) in each category.
+
+\begin{itemize}
+    \item Accuracy	How accurate is the submission based on its performance on the leaderboard?
+    \item Universality	How general and universal is the approach beyond the competition? Does your method generalize to other similar problems?
+    \item Progress	How much does the paper increase the overall chance of anyone achieving 85\% on ARC-AGI?
+    \item Theory	How well does the paper describe why the approach works (as opposed to merely describing how it works)?
+    \item Completeness	How thoroughly and completely does the paper cover the submission to the leaderboard?
+    \item Novelty	How novel is the approach relative to existing public research? 
+
+Each paper must include a corresponding Kaggle submission confirming it describes a real, working entry. The submission's score will be used in the rubric's “accuracy” category.  Paper rubric evaluations will not be shared. In the event of a tie, the paper entered first will be the winner.
+
+What to Include 
+\item  Abstract: What the contribution is (e.g., “we present a method to solve ARC-AGI, with the following characteristics...”)     
+\item Intro: What ARC-AGI is, why it's important, and the inspiration behind the approach     
+\item Prior work: Previous approaches related to yours - highlight similarities and differences     
+\item Approach: How it works, including an algorithm-level description     
+\item Results: Scores on various sets (Kaggle leaderboard, public eval). \textbf{Don't report train set performance}    
+\item Conclusion: Summary of the contribution and what was achieved 
+
+Shorter and clearer is always better. No filler, no unnecessary equations. Papers are about communicating ideas clearly so others can learn from and reuse them.
+\end{itemize}
+
+\textbf{Outstanding Papers Pool - \$375K} -- Awarded to papers scoring above 4.5 on the paper rubric (27 outta 30), at host discretion. Multiple parties may win from this pool.
+
+
+
+\bibliography{sample}  % points to your sample.bib file
+\end{document}

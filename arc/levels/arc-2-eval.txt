@@ -1,0 +1,121 @@
+da515329 - (NO) turtle spiral
+0934a4d8 - remove the rect blocking pattern bg
+aa4ec2a5 - outline and fill hole
+16b78196 - fit in gaps
+136b0064 - weird-reading order instruction snake
+981571dc - same thing, remove what's blocking pattern bg
+
+e12f9a14 - (NO) sixteenth lasers
+88e364bc - gravity falls
+a251c730 - pattern bg, then anchor-copy to dots
+9385bd28 - pixel grid says how to paint bounds
+409aa875 - shooting pellets
+abc82100 - weird instructions to replace pixels
+a6f40cea - complete shape, z-index pushed, crop
+d59b0160 - delete if has all these colors
+62593bfd - up if twin else down
+9aaea919 - gray & add to stack
+b9e38dc0 - sixteenth line and shadow
+64efde09 - copy rays over and over
+2b83f449 - go as far as you can! water chain
+eee78d87 - in & out, pixel pattern
+195c6913 - turtle pattern and collide
+db695cfb - connect lines, if intersect ray perpendicular
+67e490f4 - most common color (category) shape to holes
+6e4f6532 - anchor & rotate to color
+e87109e9 - turtle instructions
+581f7754 - shift to dot, axis dependent
+a25697e4 - fit to gap & swap color
+97d7923e - nth tallest dot ray down
+58f5dbd5 - crop to squares, center shape & sky-it
+1ae2feb7 - width is space of dots across
+16de56c4 - repeat dots until collide then color back
+b5ca7ac4 - FALL BY COLOR
+291dc1e1 - reading order center-stack
+446ef5d2 - magnet & static
+dd6b8c4b - pathfind closest, suck em up reading-order
+38007db0 - odd one out to x=2, crop
+28a6681f - that's friggin' water (fall slip w dots)
+8b7bacbf - color thru masked wires (ugh)
+edb79dae - instructions to replace shapes & crop
+31f7f899 - order join height left
+4c3d4a41 - keyhole
+de809cff - outline dots with opposite's color
+898e7135 - this is my hole (scale up, put in)
+fc7cae8d - magnet & crop whole thing
+6e453dd6 - fall, make rays at holes
+c4d067a0 - scale and anchor
+8698868d - match to holes and crop
+8b9c3697 - fall in then trail (or add line/rect)
+89565ca0 - frame hole histogram
+53fb4810 - extend pattern away
+e3721c99 - COLOR MY HOLES
+e8686506 - fit in gap then crop
+35ab12c3 - connect lines with copy shadow relative
+20270e3b - anchor, up one, recolor, crop
+88bcf3b4 - (NO) whip chains
+7491f3cf - (NO)
+7b80bb43 - just find-and-replace pixels???
+dfadab01 - find-and-replace pixels
+a47bf94d - masked wires
+3dc255db - in hull to tip
+2c181942 - magnet ball
+6ffbe589 - area says colored rotations
+faa9f03d - awful turtle instruction thing
+332f06d7 - pathfind with collide, get stuck
+2ba387bc - stack holes vs solids, fall left n right then up and crop
+800d221b - majority color wires
+5dbc8537 - fit in gap & crop
+b99e7126 - meta-map
+71e489b6 - highlight noise
+3a25b0d8 - fill hole with what's underneath (harder)
+5545f144 - (NO) "comic strip"
+7c66cb00 - same bottom & recolor
+cb2d8a2c - pathfind to other end with padding
+135a2760 - remove noise from patterns
+78332cb0 - shadow magnet with padding
+221dfab4 - yyg ladder up & recolor same row AND ALT EVAL
+271d71e2 - reading order roomba thing
+4c416de3 - place same thing on every corner (hmmm)
+4e34c42c - match & crop
+20a9e565 - (NO) Complete pattern & crop
+f560132c - fit-in-gaps then pixel bg relative-pos color
+3e6067c3 - connect-lines according to dots below
+7666fa5d - connect diagonal dots
+dbff022c - pixel bg grid says how to color holes
+db0c5428 - how to slice & rotate
+45a5af55 - rects to concentric rects arithmetic
+7b0280bc - (NO) shortest path by node
+80a900e0 - diagonal laser box thing
+4a21e3da - laser slice fall to corner slide
+f931b4a8 - (next) figure out how to cut in quadrants then those instructions
+142ca369 - rays with bounce & recolor
+7ed72f31 - copy flip & rotate
+21897d95 - color inject and rotate
+2d0172a1 - topology (NO)
+7b3084d4 - fit then rotate anchor or "point to"
+b10624e5 - ANCHOR with scale & copy
+58490d8a - count pattern bg and crop
+269e22fb - weird output shape
+1818057f - replace with blue cross
+b6f77b65 - delete and fall
+65b59efc - meta-map and distracting bg
+8e5c0c38 - AND yflip symmetry (color-mode?)
+4c7dc4dd - (NO) meta-ARC
+8f3a5a89 - outline then (forget to) add sky dot (2nd guess?)
+36a08778 - pepto bismol
+b0039139 - shape count fg bg (alt-input-parse?)
+cbebaa4b - MAGNETS
+247ef758 - copy to every coord
+a395ee82 - meta-map with color & anchor & color swap (edge measure)
+c7f57c3e - swap shapes of diff scales
+13e47133 - repeated insets, per section
+8f215267 - count stuff outside, rtl dots in
+7b5033c1 - unwraps your snake
+e376de54 - median line fixed-(extra diagonal coord??)
+a32d8b75 - (NO) pixel meta corner rotate (alt eval? ugh)
+bf45cf4b - single-color meta-map
+5961cc34 - laser & repeat
+d8e07eb2 - all in a row or col? (re-parse?)
+d35bdbdc - delete all but at ends and change color
+9bbf930d - tubes, based on pixels

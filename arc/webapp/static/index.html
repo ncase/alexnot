@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AlexNot</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- Sidebar: Choose list -->
+<div id="sidebar">
+
+    <!-- Choose the category -->
+    <select id="level_set"></select>
+
+    <!-- Choose the level -->
+    <div id="level_select"></div>
+
+    <!-- Solve 1 vs Solve ALL -->
+    <button id="solve_one">solve this level</button>
+    <br>
+    <button id="solve_all">solve ALL levels</button>
+
+</div>
+
+<!-- Color legend, pinned to the top-right: which number is which ARC color -->
+<div id="color_legend">
+    <span class="color-0">0 black</span>
+    <span class="color-1">1 blue</span>
+    <span class="color-2">2 red</span>
+    <span class="color-3">3 green</span>
+    <span class="color-4">4 yellow</span>
+    <span class="color-5">5 gray</span>
+    <span class="color-6">6 pink</span>
+    <span class="color-7">7 orange</span>
+    <span class="color-8">8 sky</span>
+    <span class="color-9">9 maroon</span>
+</div>
+
+<!-- Main: Render that level's results -->
+<div id="results">
+
+    <!-- All demonstration pairs: Input -> Output -->
+    <h2>
+        <span id="level_id"></span>
+        <a id='official_link' target='_blank' href='todo'>(how LLMs did)</a>
+    </h2>
+    <h2>train:</h2>
+    <div id="demonstrations"></div>
+
+    <!-- All tests: Input -> Predicted / Actual -->
+    <h2>test:</h2>
+    <h2><span id="solve_time"></span></h2>
+    <div id="tests"></div>
+    <!-- The approximate Bayesian posterior (collapsed by default): over programs, and over each test's outputs -->
+    <div id="bayes"></div>
+    <div id="evolution_cot"></div>
+
+</div>
+
+</body>
+</html>
+
+<script src="index.js" type="module"></script>

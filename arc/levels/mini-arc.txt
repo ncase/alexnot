@@ -1,0 +1,149 @@
+mini_aejqqqc1b47pjr5g4 - 1 3 5
+mini_abuzscmjgg12f0mdc - 1 3 5th go down 2 4th go up
+mini_aajdd8e987ucg7wmp - 2x2 grid at the bottom-right indicates the rotation for the 3x3 grid on the upper-left
+mini_bksw4pewbthhupnrn - 3 s
+mini_abjqzwwo7mhobq52 - AscendingOrder
+mini_acvgoub4310yvwun - Biggest one attracts everything
+mini_acvhhkgcbt8hvve8b - Bouncing Ball
+mini_agp0jf2ccngjdegsy - Bring the block in corner to inside
+mini_aei788udv3muok2ka - Centralize
+mini_bk9tti405ajm30vuv - Change color of object clockwise
+mini_ag1x3wunxhu3wa01l - Change the location
+mini_9a4gt4sal4b6ihjkc - Change the object order
+mini_afheel22a49dadhpf - Change the order of sticks
+mini_d2q1yx5npw0qdrnzn - Colony Expansion 2
+mini_aftgp22mlspnm1zxb - Color Emcoding
+mini_ab1kfb2tyukiwz069 - Color corners of the rectangle
+mini_ae1ybpnzgz9mlmk1 - Color encoding updated
+mini_abe9jmc0chwbqn9c7 - Color every other tiles in the horizontal line
+mini_aebkm5hclekqmx4rd - Color value and axis interpolation
+mini_ab33e6ctz4a39x67d - Count red and make convex figure with same area
+mini_affduwz8b7dyxmvnk - Count the number of each color tiles and make histogram
+mini_acpnv7madtynx3e4m - Delete Sorrounded
+mini_aekdd9ag9d5758ucw - Delete all except blocks in pinks view
+mini_agnxc5cev5d7xu89q - Delete upper left corner
+mini_abirdahy8nxqq8mrv - Diagonal expansion 
+mini_ac81cwe3xlqnl0vtj - Difference of red and green
+mini_ab75bv3lho8o820hg - ExpandnContract
+mini_acqdnnv8tlnxpx19 - Expansion and Interpolation
+mini_ab8vmgwv3s18vt7dq - Extracting diagonal color
+mini_bkr7brzakbyhu3sfc - Fill the black patches
+mini_bhlma1gimq40v7dyb - Filling Corner Corrected
+mini_adyxlvr2wuudefvqm - Fire the gun
+mini_ael6as2vofatntvzb - Fit the object to the gray area
+mini_aest2y8e97r6rhou4 - Flip color in a line
+mini_ab8jog1gzd12hofpc - Flip color
+mini_aebhyhb7kavxvpv69 - Flip gray is the axis
+mini_ab6wvu67ltkeaialw - FloodFill
+mini_9ctqaoulgvm1zso2 - Good axis
+mini_9o6mo4h8dn43zu6fb - Good divided
+mini_9nn5lz6kk4z4szffo - Good layer
+mini_9na9a94pkojo20vdi - Good maze
+mini_9nwyw75atgbflpm1i - Good object inside
+mini_ab99rxv8zu9j4t3bl - Gravity
+mini_ab8cv1mtnt7jenaia - If yellow vertical flip if green horizontal flip
+mini_afc1q0dm28z9i6egn - Importance of social distance
+mini_abwdmst9ilyp2vewc - LargestBlackArea
+mini_aeg2lz0fi09t4du6kr - LetsMeetDiagonal Edited
+mini_ag6o0l3vuqske3qj7 - Linear Bar
+mini_ab0lf3xztbyxsu3p - Most Common color
+mini_afdidd7eaonbxosey - Move and flip
+mini_bkbzu66anwnd6daa - One Color Collect together
+mini_bktxbcgcze41sald4 - One Color Diagonal Denoising
+mini_bk9t38ni3lwbapno - One Color Gravity
+mini_bkmzmkvfs83xelwq8 - One Color Multiply by two
+mini_bl12mbpu3ide97bfe - One Color Sequence
+mini_bkg9unb1kgovxkon6 - One Color Simple Stuff
+mini_bl4z15y83gmlqgkg - One Color gravity 2
+mini_aasjvev63lnj34jm - OrangeToYellow
+mini_aexsnrtwwjb8ttht - Poke
+mini_adr7fndqi61wmtnvj - Put another on yourselves
+mini_afs0vwh2o0ztvftrs - Put away overlapping rectangles
+mini_afnlpp4vzn49nkx93 - Razer reflection
+mini_ab2g1dkofxrxht5h - Reflection
+mini_ae9muckoxf9pejy2k - Reflection
+mini_bleks8igry3eqt4fn - Rotate 45 degree
+mini_aaxglsmb3xpn7gqi - Rotate 90 degrees random maze
+mini_aapas5si5cuue2txa - Simple Box Moving
+mini_af3wjj3htf3r242ir - Simple Color Fill 
+mini_abh4s781pwfrie9vt - Simple Color Switch
+mini_ab9ddt2pph5409c92 - Simpleminima Finding
+mini_aem8yo7dxiyb3i5g4 - Simple Occlusion Corrected
+mini_adthlbktjkouruq0j - Simple Unique Box
+mini_abpx6n1d4ho1vu843 - Simple color substitution by max object
+mini_afvp1kql93zvw6l3b - Snake game Turn right when you face the wall stop when you meet your tail
+mini_ah0j8vburw5a914u7 - Stretch the object horizontally
+mini_agp4tofkv4yw5a3fc - Switch layer order
+mini_af7q6sgcjwh33zhq6 - Switch the color with neighbor.
+mini_ae0g871owxvc1baq3 - Tetris edit
+mini_ab7fu64lvutswrtbk - Tetris
+mini_abebfk7kghwaazybv - Tetris
+mini_ac7y8auxq0oa1x3gh - Tetris
+mini_aed6qtpdz0r7firb - Tiling
+mini_aei8s9pjo8fioevd - TopPoint
+mini_ae5y414m4bvpacfjx - Toto Hold the line
+mini_abtiup7kl5z4wkkx4 - Tree grow
+mini_aebyjbdw1tt57ykl - WhereAreYouFrom
+mini_abpi9x72c95wdvtgp - WhereToGo
+mini_bklvocnai9xscz4h - Winner takes over the row
+mini_bv83jfqxba4q8hzbg - after rain
+mini_afyzc2pjsb51gkdg - align based on the arrow direction
+mini_blerss5coxn0ig3ou - changing color if neighbors have same
+mini_bkp4xqvn1t6b1566f - chess pawn
+mini_bka8ape8glx94eysi - clock
+mini_aby702l60zwducki - clockwise 123
+mini_acrhm6kqqbr4w69i8 - clockwise rotation
+mini_abl0slggq9g7sdkyv - color the outer edge of the object
+mini_bkxufbnufivt96os - complete square
+mini_advlyw26bcclp5nx3 - complete the grid
+mini_aescjwslh5v45v3gf - connect the dots to make a square
+mini_aehnfsp690jeqcyi - connect the gray corners
+mini_bl3df6blwyr74lj3d - copy 3x3 and see only middle 5x5 corrected
+mini_ab8gmner8ens13m7u - count color and sort to diagonal
+mini_ae4occ03osbzmznmgi - count green and color red 
+mini_bl450fal0nr0te2ja - covering the shape
+mini_aeugn2pfna6pvwdt - define boundary
+mini_abdiipodvgey6tbdf - diagonal flip
+mini_ad1nnu454mki54lqa - diagonal flip
+mini_afz9x759u8lp4kgq - diagonal motion
+mini_abqjzurzoglalkz39 - diagonal symmetry
+mini_bkx5mn43u3kviefly - drag down and trace left
+mini_bika2fz201a3w323l - edit  flip based on symmetry part
+mini_bkoau8zekve5ejb2i - edited every 5 color in a row and column
+mini_aezzazwi5alzkuk8n - exchange central regions diagonally
+mini_afhmhecdx8z6m544g - fill the other side of the border with the other side color
+mini_acqxcoewbg3zg475p - filling in the 3x3 square
+mini_afg6gtkf27jicef4m - find single cells
+mini_ae9ses9zaejs6idai - find the 5 and 1
+mini_afriful4bel4379yo - find the color of the gray pixels
+mini_ad7ge3gc5rtysj7p - find the most frequent color for every 2x2
+mini_afx63nce23o4amnx - find the most frequent color then color with it
+mini_bl8wmnt49h58bhbzm - find the total shape revealed by gray pixels
+mini_abfld9pqc1qln7rfa - flip based on the line
+mini_aepsu95pmaz36m2qd - flip on the red indicator
+mini_ac65n6z6qn8i2lsw - flip to the long side
+mini_bklbsimu8fpp62p6i - fractal
+mini_acmlt1nkjxwh68ah - going up
+mini_af8co8cvsr8u1psxt - hideandseek
+mini_ac6z4bda5su9nopah - inter and outer blue square
+mini_ae21isj0885d2hxfi - light 
+mini_bl4bdz1cgh6ajfa4yj - make me smile
+mini_aagjtrvgu9vxwb92d - make the rectangle larger
+mini_acypud56b4m1z5409 - mapping color to shape
+mini_af5dcogqbhk8pvva - one plus four
+mini_abmp2nf0g7vd1rjki - orange vs blue
+mini_acqil00ywf88hqnrpm - parting cross
+mini_aeiaci4szwtcqghvt - pull inner gadget towards the side with different color
+mini_aflo0rz66bdej719 - push to top-right by one
+mini_bjze1slxrmz0q8ufb - rainy day
+mini_ae262gcpe3lw9b2p - reshape the top left 2x2 to the bottom right 2x2
+mini_blhmgkypxwgqpqsv - reveal the original gray pixel
+mini_aefbfyndc6kgu16ai - rolling
+mini_acdi323jol47enccp - rotating colors
+mini_afcchh0wfew0rhswzq - shape mapping
+mini_acwqhltn3k0zhgzjo - stretch vertically
+mini_afe4he1mhixwh8v9e - wave propagation
+mini_bkhow9g5d3u8nwm58 - which side has more area
+mini_ae5b5csckyjb7nsj - wrap blue around red
+mini_bk7mn24iz2pdb4lxp - xor
+mini_99qy8cyl67x9b0h3h - yflip
