@@ -7,5 +7,5 @@ func_timeout
 flask
 flask-cors
 
-# Paper figures (paper/figures/)
+# Paper figures (paper/code/figures/)
 matplotlib

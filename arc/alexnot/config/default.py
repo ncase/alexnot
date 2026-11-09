@@ -152,7 +152,7 @@ ATTRACT_SEARCH_MARGIN:int = 1
 # Webapp only (solve(..., bayes=True)), display only: never changes attempts 1 and 2.
 # P(program) ∝ exp(-total_score / BAYES_TEMPERATURE), over the top BAYES_TOP_PROGRAMS programs plus one dummy
 # "out-of-model" program with the constant score BAYES_DUMMY_SCORE. T and D were grid-searched for the lowest
-# multi-class Brier score on half of ARC-1 Eval, and checked on the other half (paper/experiments/bayes_tuning/)
+# multi-class Brier score on half of ARC-1 Eval, and checked on the other half (paper/code/experiments/bayes_tuning/)
 BAYES_TOP_PROGRAMS: int = 100
 BAYES_TEMPERATURE: float = 15.5
 BAYES_DUMMY_SCORE: float = 18.0
