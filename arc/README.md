@@ -9,7 +9,7 @@ runs that program on the test input.
 - `alexnot/tests/` — test scripts for the engine's parts (parse, monkeys, DSL).
 - `webapp/` — a Flask app for watching the solver work on a level.
 - `levels/` — puzzle JSONs: `arc-1-train/`, `arc-1-eval/`, `arc-2-train/`,
-  `arc-2-eval/`, `mini-arc/`, `concept-arc/` (`_old/` = retired custom levels).
+  `arc-2-eval/`, `mini-arc/`, `concept-arc/`, `custom/`.
 
 ## Setup
 
