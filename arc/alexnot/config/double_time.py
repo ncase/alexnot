@@ -9,6 +9,7 @@ from .default import *
 ############################################################
 
 TIME_LIMIT_PER_ATTEMPT = TIME_LIMIT_PER_ATTEMPT * 2 # 2x default's, whatever it is (so this never goes stale)
+TIME_LIMIT_PER_PROGRAM = TIME_LIMIT_PER_PROGRAM * 2 # Each candidate program's run gets 2x too (same as the Kaggle config)
 
 ############################################################
 # Evolutionary Search (search_transform.py)

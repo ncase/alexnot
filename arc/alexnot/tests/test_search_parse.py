@@ -23,7 +23,7 @@ if __name__ == "__main__":
     ## CHOOSE THE LEVEL
     #######################################################################
 
-    #path = LEVELS_DIR / "arc-2-train/825aa9e9.json"  # ✅ (1st) finds orange BG 
+    #path = LEVELS_DIR / "arc-2-train-unique/825aa9e9.json"  # ✅ (1st) finds orange BG 
     path = LEVELS_DIR / "arc-1-train/1f85a75f.json"  # ✅ (1st) finds black BG
     #path = LEVELS_DIR / "arc-1-train/0d3d703e.json"  # ❌ finds no BG // todo: actually, hack: if there IS no majority
     #path = LEVELS_DIR / "arc-1-eval/84db8fc4.json"   # ✅ (in 2nd) finds no diagonal & no bg

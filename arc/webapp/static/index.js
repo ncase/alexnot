@@ -4,7 +4,7 @@ const $ = (q,el=document.body)=>el.querySelector(q);
 const LEVEL_SET_NAMES_AND_PATHS = [
     ['ARC-1 Training Set','arc-1-train'],
     ['ARC-1 Evaluation Set','arc-1-eval'],
-    ['ARC-2 Training Set','arc-2-train'],
+    ['ARC-2 Training Set (Unique)','arc-2-train-unique'],
     ['ARC-2 Evaluation Set','arc-2-eval'],
     ['Concept ARC','concept-arc'],
     ['Mini ARC','mini-arc'],

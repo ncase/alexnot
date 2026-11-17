@@ -64,7 +64,7 @@ if __name__ == "__main__":
     ## CHOOSE THE LEVEL
     #######################################################################
 
-    #path = LEVELS_DIR / "arc-2-train/5034a0b5.json"  # move 1 to own color
+    #path = LEVELS_DIR / "arc-2-train-unique/5034a0b5.json"  # move 1 to own color
     #path = LEVELS_DIR / "arc-1-train/0b148d64.json"  # color_twins test
     #path = LEVELS_DIR / "arc-1-train/1f85a75f.json"  # crop to big 'un
     # path = LEVELS_DIR / "arc-3-test/m0r0.json"  # mirror maze (crashes in the touching-color annotation: it has colors above 9)

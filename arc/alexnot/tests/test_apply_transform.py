@@ -43,7 +43,7 @@ if __name__ == "__main__":
     ## CHOOSE THE LEVEL & PROGRAM
     #######################################################################
 
-    #path = LEVELS_DIR / "arc-2-train/5034a0b5.json"  # move 1 to own color
+    #path = LEVELS_DIR / "arc-2-train-unique/5034a0b5.json"  # move 1 to own color
     #program = """
 #for shape in all(touching_scene_edge=False):
     #shape.move_towards(touching_scene_edge=True, color=shape.color, steps=1)

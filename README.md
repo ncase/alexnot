@@ -5,7 +5,9 @@ A pure-symbolic solver for ARC-AGI-2, that runs at $0.000035/task!
 **Read the paper!** (⏱️ ~90 min reading, but it's full of illustrations & not academic bone-dry)
 
 - Permalink (PDF): https://ncase.me/alexnot-paper
-- Kaggle: (to come)
+- LaTeX source: [paper/overleaf/main.tex](paper/overleaf/main.tex) (with its figures & references, in the same folder)
+- What's changed since we submitted: [CHANGELOG.md](CHANGELOG.md)
+- Kaggle: https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2/writeups/alexnot-a-pure-symbolic-arc-agi-2-program-inducto
 
 **See also:**
 
@@ -29,20 +31,21 @@ arc/
 └── levels/         the puzzle datasets (JSON), plus one .txt list per dataset
 docs/               DSL.md + MONKEYS.md
 paper/
-├── overleaf/       the paper's LaTeX, figures, references + the final PDF
+├── overleaf/       the paper's LaTeX (main.tex), figures + references
 └── code/           the code + data behind the paper's charts & experiments
 tests/              the full-solver test, and BLAST_EM.py (runs many levels in parallel, Kaggle-style)
+CHANGELOG.md        what's changed since the contest submission
 requirements.txt    Python dependencies
 LICENSE             CC0
 ```
 
 ---
 
-**How to run it** (tested with Python 3.13):
+**How to run it** (tested with Python 3.13; needs 3.11+, so check `python3 --version` first! E.g. macOS's built-in python3 is 3.9, too old):
 
 ```bash
 # Set up (from the repo root)
-python3 -m venv .venv
+python3.13 -m venv .venv          # or any python3 that's 3.11+
 .venv/bin/pip install -r requirements.txt
 
 # The webapp: pick a level, watch the solver solve it → http://127.0.0.1:9999/
@@ -57,7 +60,20 @@ cd arc
 .venv/bin/python -m tests.BLAST_EM --datasets mini-arc
 #   --datasets: any list(s) in arc/levels/*.txt, or 'all'  ·  -n N: N random levels per list
 #   --workers N: parallel workers (default: all CPUs)  ·  --timeout SECONDS: per level (default: 120)
+
+# ...or the same, but with 2x search time, in case you have a slower CPU (see below)
+.venv/bin/python -m tests.BLAST_EM --datasets mini-arc --config double_time
 ```
+
+**Why double time?** The solver's search runs on a clock (e.g. 30 seconds per attempt), so a slower CPU gets
+less search done in the same seconds, and scores lower. CPU speeds vary a lot, and we only tuned & tested the default
+time limits on one local machine (a MacBook). So for replicable scores, use `--config double_time`
+([arc/alexnot/config/double_time.py](arc/alexnot/config/double_time.py)): it doubles every time limit, so the search
+can reach its maximum performance even on a slower CPU. (Our Kaggle submission did the same, for Kaggle's slower CPUs.)
+
+**About `arc-2-train-unique`:** the original ARC-AGI-2 training set also contains all of ARC-AGI-1's training *and*
+evaluation levels. Those already live in `arc-1-train/` and `arc-1-eval/`, so `arc/levels/arc-2-train-unique/` only
+has the levels that are *unique* to ARC-AGI-2's training set (233 of them).
 
 ---
 
@@ -71,7 +87,7 @@ But as for other stuff that's in this repo, here's their links & licenses:
 
 Level datasets (in `arc/levels/`):
 - ARC-AGI-1 (`arc-1-train/`, `arc-1-eval/`): https://github.com/fchollet/ARC-AGI (Apache 2.0)
-- ARC-AGI-2 (`arc-2-train/`, `arc-2-eval/`): https://github.com/arcprize/ARC-AGI-2 (Apache 2.0)
+- ARC-AGI-2 (`arc-2-train-unique/`, `arc-2-eval/`): https://github.com/arcprize/ARC-AGI-2 (Apache 2.0)
 - ConceptARC (`concept-arc/`): https://github.com/victorvikram/ConceptARC (MIT)
 - Mini-ARC (`mini-arc/`): https://github.com/KSB21ST/MINI-ARC (Apache 2.0)
 

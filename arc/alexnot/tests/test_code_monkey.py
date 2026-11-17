@@ -32,7 +32,7 @@ if __name__ == "__main__":
     ## CHOOSE THE LEVEL
     #######################################################################
 
-    #path = LEVELS_DIR / "arc-2-train/5034a0b5.json"  # move 1 to own color
+    #path = LEVELS_DIR / "arc-2-train-unique/5034a0b5.json"  # move 1 to own color
     path = LEVELS_DIR / "arc-1-eval/d56f2372.json"  # camera spotlight the symmetrical
     #path = LEVELS_DIR / "arc-1-train/00d62c1b.json"  # fill holes puzzle
 

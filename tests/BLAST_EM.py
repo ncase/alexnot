@@ -51,7 +51,7 @@ LEVELS_DIR = ROOT / "arc" / "levels"
 LOGS_DIR = ROOT / "tests" / "blast_logs"
 
 # What "--datasets all" means: the big public sets (not arc-3-test, not custom lists)
-ALL_DATASETS: list[str] = ["arc-1-train", "arc-1-eval", "arc-2-train", "arc-2-eval", "mini-arc", "concept-arc"]
+ALL_DATASETS: list[str] = ["arc-1-train", "arc-1-eval", "arc-2-train-unique", "arc-2-eval", "mini-arc", "concept-arc"]
 
 
 #####################################################################
